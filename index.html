@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krish Khinchi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #eef0f7;
+    --card: #ffffff;
+    --radius: 22px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.07);
+    --shadow-hover: 0 16px 48px rgba(0,0,0,0.14);
+    --text: #14142a;
+    --muted: #8888a8;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding: 32px 16px 48px;
+  }
+
+  .page {
+    width: 100%; max-width: 540px;
+    display: flex; flex-direction: column; gap: 16px;
+    animation: pageIn 0.7s cubic-bezier(.23,1,.32,1) both;
+  }
+  @keyframes pageIn { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ── PROFILE ── */
+  .profile {
+    display: flex; align-items: center; gap: 16px;
+    padding: 18px 22px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    animation: cardIn 0.5s 0.05s both;
+  }
+  .avatar {
+    width: 62px; height: 62px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.25);
+  }
+  .profile-info { flex: 1; }
+  .profile-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
+  .profile-sub  { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+  .profile-badge {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff; font-size: 10px; font-weight: 800;
+    padding: 5px 12px; border-radius: 100px;
+    letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+  }
+
+  /* ── BENTO GRID ── */
+  .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ── CARD BASE ── */
+  .card {
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.35s cubic-bezier(.23,1,.32,1), box-shadow 0.35s;
+    cursor: pointer;
+    animation: cardIn 0.55s both;
+    text-decoration: none; color: inherit;
+    display: block; position: relative;
+  }
+  .card:hover { transform: translateY(-5px) scale(1.025); box-shadow: var(--shadow-hover); }
+  .card:active { transform: scale(0.97); }
+
+  .card:nth-child(1)  { animation-delay: 0.10s; }
+  .card:nth-child(2)  { animation-delay: 0.17s; }
+  .card:nth-child(3)  { animation-delay: 0.24s; }
+  .card:nth-child(4)  { animation-delay: 0.31s; }
+  .card:nth-child(5)  { animation-delay: 0.38s; }
+  .card:nth-child(6)  { animation-delay: 0.45s; }
+  .card:nth-child(7)  { animation-delay: 0.52s; }
+  .card:nth-child(8)  { animation-delay: 0.59s; }
+  .card:nth-child(9)  { animation-delay: 0.66s; }
+  .card:nth-child(10) { animation-delay: 0.73s; }
+  .card:nth-child(11) { animation-delay: 0.80s; }
+  .card:nth-child(12) { animation-delay: 0.87s; }
+
+  @keyframes cardIn {
+    from { opacity:0; transform:scale(0.90) translateY(18px); }
+    to   { opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  .card-wide { grid-column: span 2; }
+  .card-tall  { grid-row: span 2; }
+
+  /* ── SOCIAL CARD ── */
+  .card-social {
+    padding: 22px 20px 20px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 118px;
+  }
+  .s-icon {
+    width: 46px; height: 46px; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: rgba(255,255,255,0.22);
+    transition: transform 0.35s cubic-bezier(.23,1,.32,1);
+    flex-shrink: 0;
+  }
+  .card:hover .s-icon { transform: scale(1.18) rotate(-10deg); }
+  .s-name { font-size: 14px; font-weight: 800; color: #fff; letter-spacing: 0.01em; }
+  .s-sub  { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 600; margin-top: 2px; }
+
+  /* Brand colors */
+  .bg-youtube   { background: linear-gradient(135deg, #ff0000, #cc0000); }
+  .bg-instagram { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+  .bg-linkedin  { background: linear-gradient(135deg, #0077b5, #005582); }
+  .bg-leetcode  { background: linear-gradient(135deg, #f89f1b, #e8690a); }
+  .bg-gfg       { background: linear-gradient(135deg, #2f8d46, #1a5e2c); }
+  .bg-github    { background: linear-gradient(135deg, #24292e, #40464e); }
+  .bg-twitter   { background: linear-gradient(135deg, #14171a, #333); }
+  .bg-egmail   { background: linear-gradient(135deg, #a53a3a, #cc0000); }
+  .bg-telegram  { background: linear-gradient(135deg, #29b6f6, #0288d1); }
+
+  /* ── PORTFOLIO HERO ── */
+  .card-portfolio {
+    background: linear-gradient(135deg, #1a1a3e 0%, #2d1b69 50%, #11082e 100%);
+    padding: 28px 26px;
+    min-height: 140px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .port-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75); font-size: 9px;
+    font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; align-self: flex-start;
+  }
+  .port-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  .port-title { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: #fff; line-height: 1.15; }
+  .port-sub   { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 600; margin-top: 5px; }
+  .port-arrow {
+    position: absolute; bottom: 22px; right: 22px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .card:hover .port-arrow { background: rgba(255,255,255,0.25); transform: translate(3px,-3px); }
+
+  .star { position: absolute; pointer-events: none; animation: floatStar 5s ease-in-out infinite; opacity: 0.55; }
+  .star-1 { top: 18px; right: 70px; font-size: 16px; animation-delay: 0s; }
+  .star-2 { top: 55%; right: 26px; font-size: 11px; animation-delay: -2s; opacity: 0.35; }
+  .star-3 { bottom: 44px; right: 88px; font-size: 9px; animation-delay: -3.5s; opacity: 0.3; }
+  @keyframes floatStar { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-10px) scale(1.1);} }
+
+  /* ── SCHEDULE ── */
+  .card-schedule {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 22px 20px;
+    min-height: 118px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .sch-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.4); }
+  .sch-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--text); line-height: 1.25; margin-top: 2px; }
+  .sch-btn {
+    align-self: flex-start;
+    background: rgba(0,0,0,0.08); color: var(--text);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.05em;
+    padding: 6px 14px; border-radius: 100px; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .card:hover .sch-btn { background: rgba(0,0,0,0.16); }
+
+  /* ── GITHUB TALL ── */
+  .gh-langs { margin-top: 26px; }
+  .gh-lang-label { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+  .gh-lang-item { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .gh-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .gh-lang-name { font-size: 11px; color: rgba(255,255,255,0.72); font-weight: 700; }
+
+  /* ── YOUTUBE TALL ── */
+  .yt-videos { margin-top: 26px; }
+  .yt-video-label { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 9px; }
+  .yt-video-item { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 9px 11px; margin-bottom: 7px; }
+  .yt-video-title { font-size: 11px; color: #fff; font-weight: 700; line-height: 1.3; }
+  .yt-video-views { font-size: 10px; color: rgba(255,255,255,0.5); font-weight: 600; margin-top: 2px; }
+
+  /* ── STATS ── */
+  .card-stats {
+    background: var(--card);
+    padding: 22px 24px;
+    display: flex; align-items: center; gap: 0;
+  }
+  .stat-item { flex: 1; text-align: center; position: relative; }
+  .stat-item + .stat-item::before {
+    content: ''; position: absolute; left: 0; top: 15%; bottom: 15%;
+    width: 1px; background: rgba(0,0,0,0.07);
+  }
+  .stat-num   { font-family: 'Syne', sans-serif; font-size: 21px; font-weight: 800; color: var(--text); display: block; line-height: 1; }
+  .stat-label { font-size: 10px; color: var(--muted); font-weight: 700; margin-top: 4px; display: block; letter-spacing: 0.04em; }
+
+  /* ── WIDE ROW CARD (Telegram) ── */
+  .card-row {
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 18px;
+    min-height: 90px;
+  }
+  .row-arrow { margin-left: auto; font-size: 20px; color: rgba(255,255,255,0.6); transition: transform 0.3s; }
+  .card:hover .row-arrow { transform: translateX(5px); color: #fff; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center; font-size: 12px; color: var(--muted);
+    font-weight: 700; letter-spacing: 0.04em;
+    animation: cardIn 0.5s 0.95s both;
+    padding-top: 4px;
+  }
+  .footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer a:hover { color: var(--text); }
+
+  #logo {
+    width: 24px;
+    height: 24px;
+  }
+
+  .gh-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 12px); /* control width */
+  gap: 8px;
+
+  justify-content: center;  /* center inside card */
+  align-content: center;
+
+  width: fit-content;       /* prevents stretching */
+  margin: 16px auto;        /* centers block */
+}
+
+.c {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  background: #2a2f36;
+  flex-shrink: 0;
+}
+
+/* levels */
+.c.l0 { background: #ebedf0; }  /* empty (light gray) */
+.c.l1 { background: #9be9a8; }  /* light green */
+.c.l2 { background: #40c463; }  /* medium green */
+.c.l3 { background: #30a14e; }  /* dark green */
+.c.l4 { background: #216e39; }  /* darkest */
+
+.c {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.c.l2, .c.l3, .c.l4 {
+  box-shadow: 0 0 6px rgba(80, 200, 120, 0.25);
+}
+
+.c:hover {
+  transform: scale(1.2);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* moving light reflection */
+.card::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.25),
+    transparent
+  );
+  transform: rotate(25deg);
+  top: -50%;
+  left: -50%;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.card:hover::before {
+  opacity: 0.4;
+  animation: shine 1.2s ease;
+}
+
+@keyframes shine {
+  from { transform: translateX(-100%) rotate(25deg); }
+  to   { transform: translateX(100%) rotate(25deg); }
+}
+
+.profile-name {
+  font-size: 30px;
+  font-weight: 700;
+
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* optional for better rendering */
+  background-clip: text;
+  color: transparent;
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- PROFILE -->
+  <div class="profile">
+    <img class="avatar" src="../../Pictures/logo.jpg" alt="logo">
+    <div class="profile-info">
+      <div class="profile-name">Krish Khinchi</div>
+      <div class="profile-sub">Software Developer · Open Source Enthusiast</div>
+    </div>
+    <!-- <div class="profile-badge">🚀 Available</div> -->
+  </div>
+
+  <div class="bento">
+
+    <!-- 1. PORTFOLIO — wide hero -->
+    <a href="https://krishkhinchi.vercel.app/" target="_blank" class="card card-wide card-portfolio">
+      <div class="star star-1">✦</div>
+      <div class="star star-2">✦</div>
+      <div class="star star-3">◆</div>
+      <div class="port-tag"><span class="port-dot"></span> Live & Open</div>
+      <div>
+        <div class="port-title">My Portfolio</div>
+        <div class="port-sub">Projects · Case Studies · Open Source Work</div>
+      </div>
+      <div class="port-arrow">↗</div>
+    </a>
+
+    <!-- 2. GITHUB — tall left -->
+    <a href="https://github.com/krishkhinchi" target="_blank" class="card card-social card-tall bg-github">
+      <div class="s-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.38 7.86 10.9.57.1.78-.25.78-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.03 0 0 .96-.31 3.15 1.17a10.9 10.9 0 012.87-.39c.97 0 1.95.13 2.87.39 2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.74.11 3.03.73.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.41.36.78 1.06.78 2.13v3.16c0 .3.2.66.79.55A10.51 10.51 0 0023.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      </div>
+      <div>
+        <div class="s-name">GitHub</div>
+        <div class="s-sub">@krishkhinchi</div>
+      </div>
+
+      <div class="gh-grid">
+
+  <!-- Row 1 -->
+  <div class="c l1"></div><div class="c l2"></div><div class="c l0"></div><div class="c l3"></div>
+
+  <!-- Row 2 -->
+  <div class="c l0"></div><div class="c l1"></div><div class="c l2"></div><div class="c l3"></div><div class="c l0"></div><div class="c l2"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l0"></div><div class="c l1"></div><div class="c l3"></div>
+
+  <!-- Row 3 -->
+  <div class="c l2"></div><div class="c l0"></div><div class="c l1"></div><div class="c l2"></div><div class="c l3"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l1"></div><div class="c l0"></div><div class="c l3"></div><div class="c l2"></div>
+
+  <!-- Row 4 -->
+  <div class="c l0"></div><div class="c l2"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l3"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l1"></div><div class="c l0"></div><div class="c l3"></div>
+
+  <!-- Row 5 -->
+  <div class="c l1"></div><div class="c l2"></div><div class="c l3"></div><div class="c l0"></div><div class="c l1"></div><div class="c l2"></div><div class="c l0"></div><div class="c l3"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l1"></div>
+
+  <!-- Row 6 -->
+  <div class="c l0"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l3"></div><div class="c l1"></div><div class="c l0"></div><div class="c l2"></div><div class="c l1"></div><div class="c l0"></div><div class="c l3"></div><div class="c l2"></div>
+
+</div>
+
+      <div class="gh-langs">
+        <div class="gh-lang-label">Top Languages</div>
+        <div class="gh-lang-item"><span class="gh-dot" style="background:#f1e05a;"></span><span class="gh-lang-name">JavaScript</span></div>
+        <div class="gh-lang-item"><span class="gh-dot" style="background:#3178c6;"></span><span class="gh-lang-name">TypeScript</span></div>
+        <div class="gh-lang-item"><span class="gh-dot" style="background:#3572A5;"></span><span class="gh-lang-name">Python</span></div>
+        <div class="gh-lang-item"><span class="gh-dot" style="background:#e34c26;"></span><span class="gh-lang-name">HTML/CSS</span></div>
+      </div>
+    </a>
+
+    <!-- 3. YOUTUBE — tall right -->
+    <a href="https://youtube.com/@Krish_Hackz" target="_blank" class="card card-social card-tall bg-youtube">
+      <div class="s-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </div>
+      <div>
+        <div class="s-name">YouTube</div>
+        <div class="s-sub">@Krish_Hackz</div>
+      </div>
+      <div class="yt-videos">
+        <div class="yt-video-label">Latest Videos</div>
+        <div class="yt-video-item">
+          <div class="yt-video-title">10 Password Cracking Tools | Kali Linux | Password Hacking</div>
+          <div class="yt-video-views">▶ 26K views</div>
+        </div>
+        <div class="yt-video-item">
+          <div class="yt-video-title">Linux vs Windows Revealed</div>
+          <div class="yt-video-views">▶ 12K views</div>
+        </div>
+        <div class="yt-video-item">
+          <div class="yt-video-title">From Beginner to PRO: A roadmap for Cybersecurity career</div>
+          <div class="yt-video-views">▶ 1.7K views</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- 4. INSTAGRAM -->
+    <a href="https://instagram.com/krishhkhinchi" target="_blank" class="card card-social bg-instagram">
+      <div class="s-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      </div>
+      <div>
+        <div class="s-name">Instagram</div>
+        <div class="s-sub">@krishhkhinchi</div>
+      </div>
+    </a>
+
+    <!-- 5. LINKEDIN -->
+    <a href="https://linkedin.com/in/krishkhinchi" target="_blank" class="card card-social bg-linkedin">
+      <div class="s-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </div>
+      <div>
+        <div class="s-name">LinkedIn</div>
+        <div class="s-sub">Let's connect</div>
+      </div>
+    </a>
+
+    <!-- 6. SCHEDULE — wide -->
+    <a href="https://calendly.com/krishkhinchi" target="_blank" class="card card-wide card-schedule">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+        <div>
+          <div class="sch-label">Book a call</div>
+          <div class="sch-title">Schedule a Meeting ☕</div>
+        </div>
+        <div style="font-size:32px;line-height:1;">📅</div>
+      </div>
+      <div class="sch-btn">Pick a Time →</div>
+    </a>
+
+    <!-- 7. LEETCODE -->
+    <a href="https://leetcode.com/krishkhinchi" target="_blank" class="card card-social bg-leetcode">
+      <div class="s-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+      </div>
+      <div>
+        <div class="s-name">LeetCode</div>
+        <div class="s-sub">150+ problems solved</div>
+      </div>
+    </a>
+
+    <!-- 8. GFG -->
+    <a href="https://geeksforgeeks.org/profile/krishkhinchi" target="_blank" class="card card-social bg-gfg">
+      <div class="s-icon" style="font-size:26px;">
+        <svg id="logo" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+  <title>GeeksforGeeks</title>
+  <path d="M21.45 14.315c-.143.28-.334.532-.565.745a3.691 3.691 0 0 1-1.104.695 4.51 4.51 0 0 1-3.116-.016 3.79 3.79 0 0 1-2.135-2.078 3.571 3.571 0 0 1-.13-.353h7.418a4.26 4.26 0 0 1-.368 1.008zm-11.99-.654a3.793 3.793 0 0 1-2.134 2.078 4.51 4.51 0 0 1-3.117.016 3.7 3.7 0 0 1-1.104-.695 2.652 2.652 0 0 1-.564-.745 4.221 4.221 0 0 1-.368-1.006H9.59c-.038.12-.08.238-.13.352zm14.501-1.758a3.849 3.849 0 0 0-.082-.475l-9.634-.008a3.932 3.932 0 0 1 1.143-2.348c.363-.35.79-.625 1.26-.809a3.97 3.97 0 0 1 4.484.957l1.521-1.49a5.7 5.7 0 0 0-1.922-1.357 6.283 6.283 0 0 0-2.544-.49 6.35 6.35 0 0 0-2.405.457 6.007 6.007 0 0 0-1.963 1.276 6.142 6.142 0 0 0-1.325 1.94 5.862 5.862 0 0 0-.466 1.864h-.063a5.857 5.857 0 0 0-.467-1.865 6.13 6.13 0 0 0-1.325-1.939A6 6 0 0 0 8.21 6.34a6.698 6.698 0 0 0-4.949.031A5.708 5.708 0 0 0 1.34 7.73l1.52 1.49a4.166 4.166 0 0 1 4.484-.958c.47.184.898.46 1.26.81.368.36.66.792.859 1.268.146.344.242.708.285 1.08l-9.635.008A4.714 4.714 0 0 0 0 12.457a6.493 6.493 0 0 0 .345 2.127 4.927 4.927 0 0 0 1.08 1.783c.528.56 1.17 1 1.88 1.293a6.454 6.454 0 0 0 2.504.457c.824.005 1.64-.15 2.404-.457a5.986 5.986 0 0 0 1.964-1.277 6.116 6.116 0 0 0 1.686-3.076h.273a6.13 6.13 0 0 0 1.686 3.077 5.99 5.99 0 0 0 1.964 1.276 6.345 6.345 0 0 0 2.405.457 6.45 6.45 0 0 0 2.502-.457 5.42 5.42 0 0 0 1.882-1.293 4.928 4.928 0 0 0 1.08-1.783A6.52 6.52 0 0 0 24 12.457a4.757 4.757 0 0 0-.039-.554z"/>
+</svg>
+      </div>
+      <div>
+        <div class="s-name">GeeksForGeeks</div>
+        <div class="s-sub">DSA · Algorithms</div>
+      </div>
+    </a>
+
+    <!-- 9. TWITTER / X -->
+    <a href="https://x.com/krish_hackz" target="_blank" class="card card-social bg-twitter">
+      <div class="s-icon" style="font-size:22px;font-weight:900;color:#fff;font-family:'Syne',sans-serif;">𝕏</div>
+      <div>
+        <div class="s-name">Twitter / X</div>
+        <div class="s-sub">@krish_hackz</div>
+      </div>
+    </a>
+
+    <!-- 10. Gmail -->
+    <a href="mailto:'krishhackz.in@gmail.com'" target="_blank" class="card card-social bg-egmail">
+      <div class="s-icon" style="font-size:22px;font-weight:900;color:#fff;font-family:'Syne',sans-serif;">
+        <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+  <title>Gmail</title>
+  <path d="M2 6v12h4V9.5L12 14l6-4.5V18h4V6l-10 7L2 6z"/>
+</svg>
+      </div>
+      <div>
+        <div class="s-name">Gmail</div>
+        <div class="s-sub">krishhackz.in@gmail.com</div>
+      </div>
+    </a>
+
+    <!-- 11. TELEGRAM — wide -->
+    <a href="https://t.me/Krish_Hackz" target="_blank" class="card card-wide card-row bg-telegram">
+      <div class="s-icon" style="flex-shrink:0;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div class="s-name">Telegram</div>
+        <div class="s-sub">DM me directly · @Krish_Hackz</div>
+      </div>
+      <div class="row-arrow">→</div>
+    </a>
+
+    <!-- STATS BAR -->
+    <div class="card card-wide card-stats">
+      <div class="stat-item">
+        <span class="stat-num">14000+</span>
+        <span class="stat-label">Linkedin Followers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">900+</span>
+        <span class="stat-label">Youtube Subscribers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">150+</span>
+        <span class="stat-label">Github Stars</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">Made with ❤️ by Krish Khinchi</div>
+</div>
+
+<script>
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  - 0.5) * 9;
+      const y = ((e.clientY - r.top)  / r.height - 0.5) * -7;
+      card.style.transform = `translateY(-5px) scale(1.025) perspective(600px) rotateX(${y}deg) rotateY(${x}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+</script>
+</body>
+</html>
